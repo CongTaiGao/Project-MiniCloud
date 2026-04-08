@@ -1,3 +1,6 @@
+# Phiên bản hệ điều hành 
+## Ubuntu 20.04 LTS
+
 # Hướng dẫn 
 
 ## Tải về bằng Git:
