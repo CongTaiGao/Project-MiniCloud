@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog N08MiniCloud – Du lịch, Công nghệ & Cuộc sống</title>
+  <style>
+    :root {
+      --bg: #2c2826;
+      --surface: #13131c;
+      --card: #1a1a28;
+      --accent: #e8ff47;
+      --text: #f0f0f5;
+      --muted: #888899;
+      --border: rgba(255,255,255,0.07);
+
+      --c1: #ff7c4d;   /* Du lịch – cam san hô */
+      --c2: #7c5cfc;   /* Bảo mật – tím */
+      --c3: #f5c842;   /* Ngành nghề – vàng */
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 5vw;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px; position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-family: 'Arial', serif; font-size: 1.5rem; font-weight: 900; color: var(--text); text-decoration: none; }
+    .logo span { color: var(--accent); }
+    nav a { color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; margin-left: 2rem; transition: color 0.2s; }
+    nav a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero { padding: 100px 5vw 70px; max-width: 1200px; margin: 0 auto; }
+    .hero-label { font-size: 0.75rem; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 900; line-height: 1.05; letter-spacing: -2px; margin-bottom: 1.5rem; }
+    .hero h1 em { font-style: italic; color: var(--muted); }
+    .hero p { font-size: 1.1rem; color: var(--muted); max-width: 540px; line-height: 1.7; }
+
+    /* ── DIVIDER ── */
+    .divider { max-width: 1200px; margin: 0 auto 3rem; padding: 0 5vw; display: flex; align-items: center; gap: 1rem; }
+    .divider-line { flex: 1; height: 1px; background: var(--border); }
+    .divider-label { font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
+
+    /* ── FEATURED CARD – Blog 1 (Du lịch) ── */
+    .featured-section { max-width: 1200px; margin: 0 auto; padding: 0 5vw 4rem; }
+
+    .featured-card {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 4px; overflow: hidden;
+      text-decoration: none; color: inherit;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .featured-card:hover { transform: translateY(-4px); box-shadow: 0 24px 60px rgba(0,0,0,0.5); }
+
+    .featured-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+    .featured-img-placeholder {
+      width: 100%; aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #1a0a00 0%, #3d1a00 50%, #1a0a00 100%);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 0.5rem; color: var(--muted); font-size: 0.8rem; letter-spacing: 1px;
+    }
+    .img-icon { font-size: 2.5rem; opacity: 0.4; }
+
+    .featured-body { padding: 3rem 2.5rem; display: flex; flex-direction: column; justify-content: center; }
+
+    .tag {
+      display: inline-block; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 2px; margin-bottom: 1.2rem; width: fit-content;
+    }
+    .tag-orange { background: var(--c1); color: #fff; }
+    .tag-purple { background: var(--c2); color: #fff; }
+    .tag-yellow { background: var(--c3); color: #0a0a0f; }
+
+    .featured-body h2 { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; line-height: 1.2; margin-bottom: 1rem; letter-spacing: -0.5px; }
+    .featured-body p { color: var(--muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 2rem; }
+    .meta { font-size: 0.78rem; color: var(--muted); letter-spacing: 0.5px; }
+
+    .read-more { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.5px; margin-top: 1.5rem; text-decoration: none; }
+    .read-more::after { content: '→'; transition: transform 0.2s; }
+    .featured-card:hover .read-more::after { transform: translateX(4px); }
+    .rm-orange { color: var(--c1); }
+
+    /* ── GRID – Blog 2 & 3 ── */
+    .grid-section { max-width: 1200px; margin: 0 auto; padding: 0 5vw 6rem; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+
+    .card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 4px;
+      overflow: hidden; text-decoration: none; color: inherit;
+      display: flex; flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+
+    .card-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+    .card-img-placeholder {
+      width: 100%; aspect-ratio: 16/9;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 0.4rem; color: var(--muted); font-size: 0.75rem; letter-spacing: 1px;
+    }
+    .card-img-placeholder.bg-purple { background: linear-gradient(135deg, #1a0a2e, #2d1b69 50%, #1a0a2e); }
+    .card-img-placeholder.bg-yellow { background: linear-gradient(135deg, #1a1400, #7a6000 50%, #1a1400); }
+
+    .card-body { padding: 1.8rem; flex: 1; display: flex; flex-direction: column; }
+    .card-body h3 { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; line-height: 1.3; margin: 0.8rem 0; letter-spacing: -0.3px; }
+    .card-body p { color: var(--muted); font-size: 0.88rem; line-height: 1.65; flex: 1; }
+
+    .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--border); padding: 3rem 5vw; text-align: center; color: var(--muted); font-size: 0.82rem; }
+    footer strong { color: var(--accent); }
+
+    @media (max-width: 768px) {
+      .featured-card { grid-template-columns: 1fr; }
+      .grid-section { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a class="logo" href="index.html">Blog<span> N08MiniCloud</span></a>
+    <nav>
+      <a href="blog/blog1.html">Du lịch</a>
+      <a href="blog/blog2.html">Bảo mật</a>
+      <a href="blog/blog3.html">Ngành nghề</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-label">✦ Blog N08MiniCloud</p>
+    <h1>Chia sẻ về<br/><em>du lịch, công nghệ</em><br/>& cuộc sống</h1>
+    <p>Những bài viết từ góc nhìn sinh viên — về hành trình khám phá, bảo mật số và định hướng tương lai.</p>
+  </section>
+
+  <!-- FEATURED – Bài 1: Du lịch -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <span class="divider-label">Bài nổi bật</span>
+    <div class="divider-line"></div>
+  </div>
+
+  <section class="featured-section">
+    <a class="featured-card" href="blog/blog1.html">
+
+         <img class="featured-img"  src="img/vietnam_tour1.jpg"   alt="Du lịch Việt Nam" />     
+
+      <div class="featured-body">
+        <span class="tag tag-orange">Du lịch</span>
+        <h2>Khám phá Việt Nam: Những điểm đến không thể bỏ lỡ</h2>
+        <p>Từ ruộng bậc thang Sa Pa đến biển Phú Quốc, từ phố cổ Hội An đến cao nguyên đá Hà Giang — hành trình xuyên Việt chờ bạn khám phá.</p>
+        <span class="meta">📅 01/04/2026 &nbsp;·&nbsp; ⏱ 6 phút đọc</span>
+        <span class="read-more rm-orange">Đọc bài viết</span>
+      </div>
+    </a>
+  </section>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <span class="divider-label">Các bài viết khác</span>
+    <div class="divider-line"></div>
+  </div>
+
+  <section class="grid-section">
+
+    <a class="card" href="blog/blog2.html">
+
+      <img class="card-img" src="img/cyber1.jpg" alt="Bảo mật mạng" />
+      <div class="card-body">
+        <span class="tag tag-purple">Bảo mật mạng</span>
+        <h3>Bảo mật mạng trong kỷ nguyên số: Những điều bạn cần biết</h3>
+        <p>Hacker, ransomware, phishing — mối đe dọa ngày càng tinh vi. Bài viết tổng hợp các nguyên tắc bảo mật thiết yếu cho N08MiniCloud và tổ chức.</p>
+        <div class="card-footer">
+          <span class="meta">📅 28/03/2026 &nbsp;·&nbsp; ⏱ 7 phút</span>
+          <span style="color:var(--c2);font-size:0.85rem;font-weight:500;">Đọc →</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="card" href="blog/blog3.html">
+
+      <img class="card-img" src="img/carrer2.jpg" alt="Lựa chọn ngành nghề" />
+      <div class="card-body">
+        <span class="tag tag-yellow">Định hướng nghề nghiệp</span>
+        <h3>Làm thế nào để chọn đúng ngành nghề?</h3>
+        <p>Framework Ikigai, 6 bước thực tế và những sai lầm phổ biến nhất — hướng dẫn toàn diện giúp sinh viên chọn nghề không hối hận.</p>
+        <div class="card-footer">
+          <span class="meta">📅 05/04/2026 &nbsp;·&nbsp; ⏱ 7 phút</span>
+          <span style="color:var(--c3);font-size:0.85rem;font-weight:500;">Đọc →</span>
+        </div>
+      </div>
+    </a>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 <strong>Blog N08MiniCloud</strong> — Chia sẻ về Du lịch, Công nghệ & Cuộc sống</p>
+  </footer>
+
+</body>
+</html>

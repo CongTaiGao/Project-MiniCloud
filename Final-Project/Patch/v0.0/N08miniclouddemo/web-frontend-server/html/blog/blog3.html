@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Làm thế nào để chọn đúng ngành nghề? – Blog N08MiniCloud</title>
+  <style>
+    :root {
+      --bg: #2c2826;
+      --surface: #13131c;
+      --card: #1a1a28;
+      --accent: #f5c842;
+      --accent-light: #fad96e;
+      --text: #f0f0f5;
+      --muted: #888899;
+      --border: rgba(255,255,255,0.07);
+      --body-max: 720px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.8; }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 5vw;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px; position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-family: 'Arial', serif; font-size: 1.5rem; font-weight: 900; color: var(--text); text-decoration: none; }
+    .logo span { color: #e8ff47; }
+    .back-btn { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: color 0.2s; }
+    .back-btn:hover { color: var(--accent-light); }
+    .back-btn::before { content: '←'; }
+
+    .article-hero { max-width: 1100px; margin: 0 auto; padding: 60px 5vw 40px; }
+    .tag { display: inline-block; background: var(--accent); color: #0a0a0f; font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; margin-bottom: 1.5rem; }
+    .article-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.8rem); font-weight: 900; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 1.5rem; }
+    .article-hero h1 em { font-style: italic; color: var(--accent-light); }
+    .article-meta { display: flex; gap: 2rem; font-size: 0.82rem; color: var(--muted); padding-bottom: 2rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+
+    .cover-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5vw 3rem; }
+    .cover-img { width: 100%; aspect-ratio: 21/9; object-fit: cover; border-radius: 4px; display: block; }
+    .cover-placeholder {
+      width: 100%; aspect-ratio: 21/9;
+      background: linear-gradient(135deg, #1a1400 0%, #3d3000 40%, #7a6000 70%, #1a1400 100%);
+      border-radius: 4px; display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 0.8rem; color: var(--muted); font-size: 0.85rem;
+      letter-spacing: 1px; border: 1px dashed rgba(245,200,66,0.3);
+    }
+    .cover-caption { text-align: center; font-size: 0.78rem; color: var(--muted); margin-top: 0.8rem; font-style: italic; }
+
+    .article-body { max-width: var(--body-max); margin: 0 auto; padding: 0 5vw 6rem; }
+    .article-body h2 { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 700; letter-spacing: -0.5px; margin: 2.5rem 0 1rem; }
+    .article-body p { font-size: 1.05rem; color: #ccccd8; margin-bottom: 1.4rem; line-height: 1.85; }
+
+    .inline-img-wrap { margin: 2.5rem 0; }
+    .inline-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 4px; display: block; }
+    .inline-placeholder {
+      width: 100%; aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #1a1400, #7a6000 50%, #1a1400);
+      border-radius: 4px; display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 0.5rem; color: var(--muted); font-size: 0.8rem;
+      letter-spacing: 1px; border: 1px dashed rgba(245,200,66,0.2);
+    }
+    .inline-caption { font-size: 0.78rem; color: var(--muted); margin-top: 0.7rem; font-style: italic; text-align: center; }
+
+    /* Framework 3 vòng tròn */
+    .ikigai-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1.5rem 0 2.5rem;
+    }
+
+    .ikigai-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ikigai-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--accent);
+    }
+
+    .ikigai-card .q-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+
+    .ikigai-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .ikigai-card p {
+      font-size: 0.85rem !important;
+      color: var(--muted) !important;
+      margin: 0 !important;
+      line-height: 1.55 !important;
+    }
+
+    .highlight-box { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.8rem; border-radius: 0 4px 4px 0; margin: 2rem 0; }
+    .highlight-box p { color: var(--text) !important; font-size: 1rem !important; margin: 0 !important; }
+
+    /* Step list */
+    .step-list { list-style: none; margin: 1rem 0 2rem; counter-reset: step; }
+    .step-list li {
+      font-size: 1rem; color: #ccccd8;
+      padding: 1rem 0 1rem 3.5rem;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      line-height: 1.7;
+      counter-increment: step;
+    }
+    .step-list li:last-child { border-bottom: none; }
+    .step-list li::before {
+      content: counter(step);
+      position: absolute; left: 0; top: 1rem;
+      width: 2rem; height: 2rem;
+      background: var(--accent);
+      color: #0a0a0f;
+      border-radius: 50%;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* Warning box */
+    .warning-box {
+      background: rgba(245,200,66,0.08);
+      border: 1px solid rgba(245,200,66,0.2);
+      border-radius: 4px;
+      padding: 1.3rem 1.6rem;
+      margin: 2rem 0;
+    }
+    .warning-box p { color: #ccccd8 !important; font-size: 0.95rem !important; margin: 0 !important; }
+
+    .nav-bottom { max-width: var(--body-max); margin: 0 auto; padding: 2rem 5vw 5rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); flex-wrap: wrap; gap: 1rem; }
+    .nav-bottom a { color: var(--accent-light); text-decoration: none; font-size: 0.9rem; font-weight: 500; display: inline-flex; align-items: center; gap: 0.4rem; transition: gap 0.2s; }
+    .nav-bottom a:hover { gap: 0.7rem; }
+    .nav-home::before { content: '← '; }
+    .nav-prev::before { content: '← '; }
+
+    footer { border-top: 1px solid var(--border); padding: 2.5rem 5vw; text-align: center; color: var(--muted); font-size: 0.82rem; }
+    footer strong { color: #e8ff47; }
+
+    @media (max-width: 600px) { .ikigai-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a class="logo" href="../index.html">Blog<span> N08MiniCloud</span></a>
+    <a class="back-btn" href="../index.html">Quay lại trang chủ</a>
+  </header>
+
+  <div class="article-hero">
+    <span class="tag">Định hướng nghề nghiệp</span>
+    <h1>Làm thế nào để<br/>chọn đúng<br/><em>ngành nghề?</em></h1>
+    <div class="article-meta">
+      <span>✍️ Tác giả: Sinh viên</span>
+      <span>📅 5 tháng 4, 2026</span>
+      <span>⏱ 7 phút đọc</span>
+      <span>🏷 Nghề nghiệp · Sinh viên · Hướng nghiệp</span>
+    </div>
+  </div>
+
+  <!-- ẢNH BÌA BÀI 3 -->
+  <div class="cover-wrap">
+
+    <img class="cover-img"  src="../img/career3.png"/>           
+    <p class="cover-caption">Hình minh họa: Hành trình định hướng và lựa chọn nghề nghiệp</p>
+  </div>
+
+  <article class="article-body">
+
+    <h2>Bài toán khó nhất của sinh viên</h2>
+    <p>
+      "Em không biết mình muốn làm gì" — đây có lẽ là câu nói phổ biến nhất trong các buổi tư vấn hướng nghiệp ở Việt Nam. Chọn ngành sai, học xong rồi mới phát hiện ra mình không thích — đây là thực trạng của hàng trăm nghìn sinh viên mỗi năm.
+    </p>
+    <p>
+      Nhưng việc chọn ngành không cần phải là một canh bạc. Có những câu hỏi đúng đắn, những công cụ tư duy và những dữ liệu thực tế giúp bạn đưa ra quyết định có căn cứ — thay vì đi theo cảm hứng nhất thời hoặc áp lực từ gia đình.
+    </p>
+
+    <!-- ẢNH INLINE 1 -->
+    <div class="inline-img-wrap">
+      <img class="inline-img" src="../img/carrer2.jpg" />
+      <p class="inline-caption">Ngày hội tư vấn tuyển sinh ngành nghề tại Đại học Tôn Đức Thắng (Nguồn: TDTU)</p>
+    </div>
+
+    <h2>Framework Ikigai: 4 câu hỏi thay đổi cuộc đời</h2>
+    <p>
+      Người Nhật có một khái niệm gọi là <em>Ikigai</em> (生き甲斐) — lý do tồn tại. Khi áp dụng vào chọn nghề, nó trở thành giao điểm của 4 yếu tố cốt lõi:
+    </p>
+
+    <div class="ikigai-grid">
+      <div class="ikigai-card">
+        <div class="q-label">Câu hỏi 1</div>
+        <h4>Bạn giỏi điều gì?</h4>
+        <p>Kỹ năng, điểm mạnh tự nhiên, những việc bạn làm tốt hơn người khác một cách rõ rệt. Không nhất thiết phải là thứ bạn thích.</p>
+      </div>
+      <div class="ikigai-card">
+        <div class="q-label">Câu hỏi 2</div>
+        <h4>Bạn yêu thích điều gì?</h4>
+        <p>Việc gì khiến bạn mất khái niệm về thời gian khi làm? Chủ đề gì bạn đọc tự nguyện, không ai bắt?</p>
+      </div>
+      <div class="ikigai-card">
+        <div class="q-label">Câu hỏi 3</div>
+        <h4>Thế giới cần gì?</h4>
+        <p>Vấn đề xã hội nào cần giải quyết? Ngành nào đang thiếu nhân lực? Xu hướng nào đang trỗi dậy?</p>
+      </div>
+      <div class="ikigai-card">
+        <div class="q-label">Câu hỏi 4</div>
+        <h4>Ai sẽ trả tiền cho bạn?</h4>
+        <p>Thị trường lao động ra sao? Mức lương trung bình? Cơ hội thăng tiến? Ngành này phát triển hay đang thu hẹp?</p>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p>💡 <strong>Ngành nghề lý tưởng</strong> nằm ở giao điểm cả 4 yếu tố trên. Chỉ giỏi mà không yêu thích → burnout. Chỉ yêu thích mà không có thị trường → không sống được. Cân bằng cả 4 → bền vững lâu dài.</p>
+    </div>
+
+        <img class="inline-img" src="../img/career1.jpg"  />
+      <p class="inline-caption">Sơ đồ Ikigai — phương pháp tìm kiếm nghề nghiệp có ý nghĩa của người Nhật</p>
+    </div>
+
+    <h2>6 bước thực tế để chọn ngành không hối hận</h2>
+    <ol class="step-list">
+      <li>
+        <strong>Tự kiểm kê bản thân:</strong> Viết ra 10 việc bạn làm tốt và 10 việc bạn thích làm. Tìm phần giao nhau. Làm bài test MBTI, Holland Code (RIASEC) hoặc StrengthsFinder để có thêm góc nhìn khách quan.
+      </li>
+      <li>
+        <strong>Nghiên cứu thị trường lao động:</strong> Xem LinkedIn Jobs, ITviec, VietnamWorks — ngành nào đang tuyển nhiều? Mức lương ra sao sau 3–5 năm kinh nghiệm? Công cụ hữu ích: Vietnam Skills Report, Navigos Research.
+      </li>
+      <li>
+        <strong>Nói chuyện với người trong nghề:</strong> Kết nối với ít nhất 3 người đang làm ngành bạn quan tâm qua LinkedIn hoặc alumni của trường. Hỏi về công việc hàng ngày thực sự, không phải những gì quảng cáo.
+      </li>
+      <li>
+        <strong>Thử nghiệm thực tế:</strong> Intern, làm part-time, tham gia CLB chuyên ngành, làm dự án nhỏ. Không có cách nào biết mình có thích nghề đó không bằng cách thực sự làm nó.
+      </li>
+      <li>
+        <strong>Đánh giá chương trình đào tạo:</strong> Xem syllabus thực tế của trường, không chỉ tên ngành. Hỏi tỷ lệ có việc làm sau tốt nghiệp. Xem đội ngũ giảng viên có kinh nghiệm thực tiễn không.
+      </li>
+      <li>
+        <strong>Chấp nhận điều chỉnh:</strong> Không có lựa chọn nào là hoàn hảo 100% ngay từ đầu. Quan trọng là bạn có roadmap rõ ràng và sẵn sàng học thêm kỹ năng theo thị trường. Nghề nghiệp là hành trình, không phải điểm đến cố định.
+      </li>
+    </ol>
+
+    <div class="warning-box">
+      <p>⚠️ <strong>Những sai lầm phổ biến cần tránh:</strong> Chọn ngành theo trend nhất thời (hôm nay hot, 4 năm sau chưa chắc); chọn vì lương cao mà bỏ qua sự phù hợp; nghe lời gia đình mà không tự tìm hiểu; và nghĩ rằng một lựa chọn là mãi mãi — thực tế, 30% người đi làm đã chuyển ngành ít nhất một lần.</p>
+    </div>
+
+    <h2>Ngành nào đang có nhiều cơ hội ở Việt Nam 2026?</h2>
+    <p>
+      Dựa trên dữ liệu tuyển dụng thực tế, những lĩnh vực có nhu cầu nhân lực cao và mức lương tốt bao gồm: <strong>Công nghệ thông tin</strong> (đặc biệt AI/ML, Cybersecurity, Cloud), <strong>Y tế và Dược phẩm</strong>, <strong>Logistics và Chuỗi cung ứng</strong>, <strong>Tài chính - Fintech</strong>, và <strong>Năng lượng tái tạo</strong>.
+    </p>
+    <p>
+      Tuy nhiên, đây chỉ là xu hướng — không phải công thức. Bạn giỏi và yêu thích lĩnh vực nào, tập trung phát triển sâu ở đó. Người giỏi nhất trong ngành "bình thường" luôn kiếm được nhiều hơn người trung bình trong ngành "hot".
+    </p>
+
+    <h2>Kết luận: Chọn nghề là chọn cuộc sống</h2>
+    <p>
+      Bạn sẽ dành khoảng 90.000 giờ trong cuộc đời để đi làm — tương đương 1/3 cuộc sống tỉnh thức của bạn. Đó là lý do tại sao chọn đúng nghề quan trọng không kém chọn đúng người yêu. Đừng vội, đừng theo đám đông, và đừng sợ thử sai.
+    </p>
+    <p>
+      Bắt đầu bằng việc hỏi đúng câu hỏi, tìm kiếm đúng thông tin và dám thử nghiệm thực tế. Sự rõ ràng về nghề nghiệp không đến từ việc ngồi suy nghĩ — nó đến từ hành động.
+    </p>
+
+  </article>
+
+  <div class="nav-bottom">
+    <a class="nav-home" href="../index.html">Trang chủ</a>
+    <a class="nav-prev" href="blog2.html">Bài trước: Bảo mật mạng</a>
+  </div>
+
+  <footer>
+    <p>© 2026 <strong>Blog N08MiniCloud</strong> — Chia sẻ về Du lịch, Công nghệ & Cuộc sống</p>
+  </footer>
+
+</body>
+</html>

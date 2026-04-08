@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Students DB</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #eef2f3, #dfe9f3);
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 24px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background: white;
+            overflow: hidden;
+        }
+
+        th {
+            background: #4CAF50;
+            color: white;
+            padding: 14px;
+        }
+
+        td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f8f8;
+        }
+
+        tr:hover {
+            background: #f0f0f0;
+        }
+
+        input {
+            padding: 10px;
+            margin: 6px 8px 6px 0;
+            width: 180px;
+        }
+
+        button, .btn {
+            padding: 10px 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            color: white;
+            display: inline-block;
+        }
+
+        .btn-add {
+            background: #4CAF50;
+        }
+
+        .btn-edit {
+            background: #2196F3;
+        }
+
+        .btn-delete {
+            background: #f44336;
+        }
+
+        .actions form {
+            display: inline;
+        }
+
+        #editBox {
+            display: none;
+        }
+
+        .small {
+            font-size: 13px;
+            color: #666;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Students DB</h1>
+
+    <div class="card">
+        <h2>Add Student</h2>
+        <form method="post" action="/students-db/add">
+            <input type="text" name="student_id" placeholder="Student ID" maxlength="10" required>
+            <input type="text" name="fullname" placeholder="Full Name" maxlength="100" required>
+            <input type="date" name="dob" required>
+            <input type="text" name="major" placeholder="Major" maxlength="50" required>
+            <button class="btn btn-add" type="submit">Add</button>
+        </form>
+    </div>
+
+    <div class="card" id="editBox">
+        <h2>Edit Student</h2>
+        <form method="post" id="editForm">
+            <input type="text" name="student_id" id="edit_student_id" maxlength="10" required>
+            <input type="text" name="fullname" id="edit_fullname" maxlength="100" required>
+            <input type="date" name="dob" id="edit_dob" required>
+            <input type="text" name="major" id="edit_major" maxlength="50" required>
+            <button class="btn btn-edit" type="submit">Save</button>
+            <button class="btn" type="button" style="background:#777;" onclick="hideEditBox()">Cancel</button>
+        </form>
+        <div class="small">Click Edit in the table to load data here.</div>
+    </div>
+
+    <div class="card">
+        <h2>Student List</h2>
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Student ID</th>
+                <th>Full Name</th>
+                <th>DOB</th>
+                <th>Major</th>
+                <th>Action</th>
+            </tr>
+
+            {% for s in students %}
+            <tr>
+                <td>{{ s.id }}</td>
+                <td>{{ s.student_id }}</td>
+                <td>{{ s.fullname }}</td>
+                <td>{{ s.dob }}</td>
+                <td>{{ s.major }}</td>
+                <td class="actions">
+                    <button
+                        class="btn btn-edit"
+                        type="button"
+                        onclick="showEditBox(
+                            {{ s.id }},
+                            '{{ s.student_id }}',
+                            '{{ s.fullname }}',
+                            '{{ s.dob }}',
+                            '{{ s.major }}'
+                        )"
+                    >
+                        Edit
+                    </button>
+
+                    <form method="post" action="/students-db/delete/{{ s.id }}" onsubmit="return confirm('Delete this student?');">
+                        <button class="btn btn-delete" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<script>
+function showEditBox(id, student_id, fullname, dob, major) {
+    document.getElementById("editBox").style.display = "block";
+    document.getElementById("editForm").action = "/students-db/edit/" + id;
+    document.getElementById("edit_student_id").value = student_id;
+    document.getElementById("edit_fullname").value = fullname;
+    document.getElementById("edit_dob").value = dob;
+    document.getElementById("edit_major").value = major;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function hideEditBox() {
+    document.getElementById("editBox").style.display = "none";
+}
+</script>
+
+</body>
+</html>

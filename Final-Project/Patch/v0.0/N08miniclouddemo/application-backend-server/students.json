@@ -1,0 +1,7 @@
+[
+  {"id": 1, "name": "An", "major": "IT", "gpa": 3.5},
+  {"id": 2, "name": "Binh", "major": "Business", "gpa": 3.2},
+  {"id": 3, "name": "Chi", "major": "Design", "gpa": 3.6},
+  {"id": 4, "name": "Dung", "major": "Finance", "gpa": 3.1},
+  {"id": 5, "name": "Em", "major": "AI", "gpa": 3.9}
+]
