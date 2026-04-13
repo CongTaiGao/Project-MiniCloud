@@ -1,5 +1,10 @@
+
 # Phiên bản hệ điều hành 
-## Ubuntu 20.04 LTS
+### Ubuntu 20.04 LTS
+
+# Yêu cầu phần cứng và HĐH trên AWS EC2
+### Ubuntu 22.04 LTS
+### Instance type: t3.small trở lên
 
 # Hướng dẫn 
 
@@ -8,7 +13,58 @@
 git clone https://github.com/CongTaiGao/S2-2025-2026-University-CloudComputing.git
 ```
 
+Nếu gặp lỗi permission denied trên localhost
+
+```bash
+sudo chmod 755 -R ./S2-2025-2026-University-CloudComputing
+```
+
 ## DOCKER
+
+### Cài đặt
+
+```bash
+sudo apt update
+sudo apt install ca-certificates curl gnupg lsb-release -y
+```
+
+```bash
+sudo mkdir -p /etc/apt/keyrings
+```
+
+```bash
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
+sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+```
+
+
+```bash
+echo \
+"deb [arch=$(dpkg --print-architecture) \
+signed-by=/etc/apt/keyrings/docker.gpg] \
+https://download.docker.com/linux/ubuntu \
+$(lsb_release -cs) stable" | \
+sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+
+
+
+
+```bash
+sudo apt update
+```
+
+```bash
+sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin -y
+```
+
+### Test
+
+```bash
+docker compose version
+```
+
+### Compose
 
 Docker compose: Vào thư mục chính chứa docker-compose.yml sau đó chạy các lệnh sau:
 ```bash
@@ -29,6 +85,21 @@ Lệnh khởi động lại:
 ```bash
 docker compose restart
 ```
+### Troubleshooting
+
+Sử dụng lệnh sau để check log của container
+```bash
+docker logs <tên container>
+```
+
+Nếu có ghi nhận Permission Denied (Thường gặp khi triển khai public trên EC2) thì:
+```bash
+nano docker-compose.yml
+
+#Tìm đoạn container cần fix và thêm
+user: "root"
+```
+
 
 ## WEB-FRONTENDED-SERVER
 
@@ -71,6 +142,8 @@ Truy cập vào URL: localhost:8081
 
 Username: admin
 Mật khẩu: admin
+
+Đối với triển khai trên EC2 cần tìm trong `docker-compose.yml` dòng `KC_HOSTNAME` ở keycloak cần chuyển `localhost` thành ip của instance EC2 hoặc xóa luôn `KC_HOSTNAME`
 
 ### CÁCH LẤY TOKEN từ Account KeyCloak với realm N08
 ```bash
@@ -124,6 +197,8 @@ Mật khẩu: admin
 
 Chọn mục "Dashboards" ở sidebar bên trái để xem biểu đồ
 
+Nếu không có biểu đồ nào cả thì có thể import lại dashboard "Exporter Full" với ID `1860`
+
 ## NGINX-PROXY-SERVER
 
 Thử truy cập trên trình duyệt với URL: localhost/student 
@@ -147,8 +222,8 @@ docker logs api-gateway-proxy-server
 Phải trả về IP luân phiên giữa 3 server 
 ##
 
-#### Auth: Cao Thông Thái 
-#### Date: 08/04/2026
+#### Author: Cao Thông Thái 
+#### Last Updated: 13/04/2026
 
 
 
