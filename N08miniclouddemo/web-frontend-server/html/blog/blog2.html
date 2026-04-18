@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bảo mật mạng trong kỷ nguyên số – Blog N08MiniCloud</title>
+  <style>
+    :root {
+      --bg: #2c2826;
+      --surface: #13131c;
+      --card: #1a1a28;
+      --accent: #7c5cfc;
+      --accent-light: #a98dff;
+      --text: #f0f0f5;
+      --muted: #888899;
+      --border: rgba(255,255,255,0.07);
+      --body-max: 720px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: 'Arial', serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .logo span { color: #e8ff47; }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .back-btn:hover { color: var(--accent-light); }
+    .back-btn::before { content: '←'; }
+
+    .article-hero {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 5vw 40px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+
+    .article-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 1.5rem;
+    }
+
+    .article-hero h1 em {
+      font-style: italic;
+      color: var(--accent-light);
+    }
+
+    .article-meta {
+      display: flex;
+      gap: 2rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .cover-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 5vw 3rem;
+    }
+
+    .cover-img {
+      width: 100%;
+      aspect-ratio: 21/9;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+    }
+
+    .cover-placeholder {
+      width: 100%;
+      aspect-ratio: 21/9;
+      background: linear-gradient(135deg, #0d0d1a 0%, #1a0a2e 40%, #2d1b69 70%, #0d0d1a 100%);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.8rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      border: 1px dashed rgba(124,92,252,0.3);
+    }
+
+    .cover-caption {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.8rem;
+      font-style: italic;
+    }
+
+    .article-body {
+      max-width: var(--body-max);
+      margin: 0 auto;
+      padding: 0 5vw 6rem;
+    }
+
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin: 2.5rem 0 1rem;
+    }
+
+    .article-body p {
+      font-size: 1.05rem;
+      color: #ccccd8;
+      margin-bottom: 1.4rem;
+      line-height: 1.85;
+    }
+
+    .inline-img-wrap { margin: 2.5rem 0; }
+
+
+    .inline-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+    }
+
+    .inline-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #1a0a2e, #2d1b69 50%, #1a0a2e);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      border: 1px dashed rgba(124,92,252,0.2);
+    }
+
+    .inline-caption {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.7rem;
+      font-style: italic;
+      text-align: center;
+    }
+
+    .highlight-box {
+      background: var(--card);
+      border-left: 3px solid var(--accent);
+      padding: 1.5rem 1.8rem;
+      border-radius: 0 4px 4px 0;
+      margin: 2rem 0;
+    }
+
+    .highlight-box p {
+      color: var(--text) !important;
+      font-size: 1rem !important;
+      margin: 0 !important;
+    }
+
+    /* Checklist */
+    .checklist {
+      list-style: none;
+      margin: 1.5rem 0 2rem;
+    }
+
+    .checklist li {
+      font-size: 1rem;
+      color: #ccccd8;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: baseline;
+      gap: 0.8rem;
+      line-height: 1.6;
+    }
+
+    .checklist li::before {
+      content: '✓';
+      color: var(--accent-light);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .nav-bottom {
+      max-width: var(--body-max);
+      margin: 0 auto;
+      padding: 2rem 5vw 5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .nav-bottom a {
+      color: var(--accent-light);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: gap 0.2s;
+    }
+    .nav-bottom a:hover { gap: 0.7rem; }
+    .nav-home::before { content: '← '; }
+    .nav-next::after { content: ' →'; }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem 5vw;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    footer strong { color: #e8ff47; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a class="logo" href="../index.html">Blog<span> N08MiniCloud</span></a>
+    <a class="back-btn" href="../index.html">Quay lại trang chủ</a>
+  </header>
+
+  <div class="article-hero">
+    <span class="tag">Bảo mật mạng</span>
+    <h1>Bảo mật mạng trong<br/>kỷ nguyên số:<br/><em>Những điều cần biết</em></h1>
+    <div class="article-meta">
+      <span>✍️ Tác giả: Sinh viên</span>
+      <span>📅 28 tháng 3, 2026</span>
+      <span>⏱ 7 phút đọc</span>
+      <span>🏷 Cybersecurity · Hacker · Phishing</span>
+    </div>
+  </div>
+
+  <div class="cover-wrap">
+
+ <img class="cover-img"   src="../img/cyber1.jpg"    alt="Bảo mật mạng" />             
+
+    <p class="cover-caption">Hình minh họa: An ninh mạng và bảo vệ dữ liệu</p>
+  </div>
+
+  <article class="article-body">
+
+    <h2>Bức tranh về mối đe dọa mạng hiện nay</h2>
+    <p>
+      Mỗi 39 giây, một cuộc tấn công mạng xảy ra trên thế giới. Năm 2024, thiệt hại toàn cầu từ tội phạm mạng ước tính vượt 9 nghìn tỷ USD — con số lớn hơn GDP của hầu hết các quốc gia. Đây không còn là chủ đề của phim hành động; đây là thực tế số mà mọi N08MiniCloud và tổ chức phải đối mặt.
+    </p>
+    <p>
+      Từ các doanh nghiệp lớn như Sony, Yahoo đến bệnh viện, trường học, chính phủ — không ai miễn nhiễm. Và đáng lo ngại hơn, các cuộc tấn công ngày càng tinh vi, được tự động hóa bởi chính AI mà chúng ta đang ca ngợi ở bài trước.
+    </p>
+
+    <div class="inline-img-wrap">
+       <img class="inline-img" src="../img/cyber3.png"/>   
+      <p class="inline-caption">Bản đồ các cuộc tấn công mạng theo thời gian thực trên toàn cầu (Nguồn: radware)</p>
+    </div>
+
+    <h2>Các hình thức tấn công phổ biến nhất</h2>
+    <p>Dưới đây là những mối đe dọa bạn có nhiều khả năng gặp phải nhất:</p>
+
+    <ul class="checklist">
+      <li><strong>Phishing:</strong> Email giả mạo ngân hàng, công ty dịch vụ để đánh cắp thông tin đăng nhập. Chiếm 36% tổng số vi phạm dữ liệu.</li>
+      <li><strong>Ransomware:</strong> Mã độc mã hóa toàn bộ dữ liệu của bạn và đòi tiền chuộc. Trung bình một cuộc tấn công ransomware gây thiệt hại 4.5 triệu USD.</li>
+      <li><strong>Social Engineering:</strong> Kẻ tấn công giả làm IT support, đồng nghiệp hoặc đối tác để thao túng nạn nhân tiết lộ thông tin.</li>
+      <li><strong>Man-in-the-Middle:</strong> Tấn công xen giữa kết nối để nghe lén hoặc chỉnh sửa dữ liệu truyền tải — thường xảy ra trên WiFi công cộng.</li>
+      <li><strong>Zero-day Exploit:</strong> Khai thác lỗ hổng bảo mật chưa được vá, thường do các nhóm hacker quốc gia sử dụng.</li>
+    </ul>
+
+    <div class="highlight-box">
+      <p>🛡 <strong>Thực tế đáng sợ:</strong> 95% các vụ vi phạm bảo mật xảy ra do lỗi con người — không phải do lỗ hổng kỹ thuật. Kẻ tấn công thường không "hack vào hệ thống" mà "hack vào con người" trước.</p>
+    </div>
+
+
+    <div class="inline-img-wrap">
+      <img class="inline-img"  src="../img/cyber2.png" />
+
+      <p class="inline-caption">Các nguyên tắc tạo mật khẩu mạnh và quản lý tài khoản an toàn</p>
+    </div>
+
+    <h2>7 nguyên tắc bảo mật cơ bản cho mọi người</h2>
+    <p>Bảo mật không cần phải phức tạp. Chỉ cần thực hành những điều này nhất quán, bạn đã an toàn hơn 90% người dùng thông thường:</p>
+
+    <ul class="checklist">
+      <li>Dùng mật khẩu dài (12+ ký tự), ngẫu nhiên và khác nhau cho mỗi tài khoản. Dùng trình quản lý mật khẩu như Bitwarden hoặc 1Password.</li>
+      <li>Bật xác thực hai yếu tố (2FA) cho mọi tài khoản quan trọng — email, ngân hàng, mạng xã hội.</li>
+      <li>Cập nhật phần mềm ngay khi có bản vá bảo mật. Hầu hết các cuộc tấn công khai thác lỗ hổng đã có bản vá nhưng chưa được cập nhật.</li>
+      <li>Không click vào link trong email hoặc SMS lạ. Luôn truy cập trực tiếp qua trình duyệt.</li>
+      <li>Sao lưu dữ liệu định kỳ theo quy tắc 3-2-1: 3 bản sao, 2 loại phương tiện, 1 bản lưu ngoại tuyến.</li>
+      <li>Sử dụng VPN tin cậy khi dùng WiFi công cộng tại quán cà phê, sân bay.</li>
+      <li>Kiểm tra haveibeenpwned.com để biết email của bạn có bị lộ trong các vụ rò rỉ dữ liệu không.</li>
+    </ul>
+
+    <h2>Kết luận: Bảo mật là thói quen, không phải sản phẩm</h2>
+    <p>
+      Không có phần mềm hay thiết bị nào có thể bảo vệ bạn hoàn toàn nếu bạn không chú ý đến hành vi số của mình. Bảo mật tốt nhất xuất phát từ nhận thức — hiểu kẻ tấn công muốn gì, chúng làm thế nào, và tại sao bạn là mục tiêu.
+    </p>
+    <p>
+      Trong thế giới mà mọi thứ đều kết nối, bảo vệ dữ liệu N08MiniCloud của bạn cũng chính là bảo vệ danh tính, tài sản và sự riêng tư của bạn trong thế giới thực.
+    </p>
+
+  </article>
+
+  <div class="nav-bottom">
+    <a class="nav-home" href="../index.html">Trang chủ</a>
+    <a class="nav-next" href="blog3.html">Bài tiếp theo: Định hướng nghề nghiệp</a>
+  </div>
+
+  <footer>
+    <p>© 2026 <strong>Blog N08MiniCloud</strong>  — Chia sẻ về Du lịch, Công nghệ & Cuộc sống</p>
+  </footer>
+
+</body>
+</html>

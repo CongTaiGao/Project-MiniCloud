@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Khám phá Việt Nam – Những điểm đến không thể bỏ lỡ – Blog N08MiniCloud</title>
+  <style>
+    :root {
+      --bg: #2c2826;
+      --surface: #13131c;
+      --card: #1a1a28;
+      --accent: #ff7c4d;
+      --accent-light: #ffab8a;
+      --text: #f0f0f5;
+      --muted: #888899;
+      --border: rgba(255,255,255,0.07);
+      --body-max: 720px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.8; }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 5vw;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 72px; position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-family: 'Arial', serif; font-size: 1.5rem; font-weight: 900; color: var(--text); text-decoration: none; }
+    .logo span { color: #e8ff47; }
+    .back-btn { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--muted); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: color 0.2s; }
+    .back-btn:hover { color: var(--accent-light); }
+    .back-btn::before { content: '←'; }
+
+    .article-hero { max-width: 1100px; margin: 0 auto; padding: 60px 5vw 40px; }
+    .tag { display: inline-block; background: var(--accent); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; margin-bottom: 1.5rem; }
+    .article-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.8rem); font-weight: 900; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 1.5rem; }
+    .article-hero h1 em { font-style: italic; color: var(--accent-light); }
+    .article-meta { display: flex; gap: 2rem; font-size: 0.82rem; color: var(--muted); padding-bottom: 2rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+
+    .cover-wrap { max-width: 1100px; margin: 0 auto; padding: 0 5vw 3rem; }
+    .cover-img { width: 100%; aspect-ratio: 21/9; object-fit: cover; border-radius: 4px; display: block; }
+    .cover-placeholder {
+      width: 100%; aspect-ratio: 21/9;
+      background: linear-gradient(135deg, #1a0a00 0%, #3d1a00 40%, #7a3800 70%, #1a0a00 100%);
+      border-radius: 4px; display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 0.8rem; color: var(--muted); font-size: 0.85rem;
+      letter-spacing: 1px; border: 1px dashed rgba(255,124,77,0.3);
+    }
+    .cover-caption { text-align: center; font-size: 0.78rem; color: var(--muted); margin-top: 0.8rem; font-style: italic; }
+
+    .article-body { max-width: var(--body-max); margin: 0 auto; padding: 0 5vw 6rem; }
+    .article-body h2 { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 700; letter-spacing: -0.5px; margin: 2.5rem 0 1rem; }
+    .article-body p { font-size: 1.05rem; color: #ccccd8; margin-bottom: 1.4rem; line-height: 1.85; }
+
+    .inline-img-wrap { margin: 2.5rem 0; }
+    .inline-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 4px; display: block; }
+    .inline-placeholder {
+      width: 100%; aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #1a0a00, #7a3800 50%, #1a0a00);
+      border-radius: 4px; display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 0.5rem; color: var(--muted); font-size: 0.8rem;
+      letter-spacing: 1px; border: 1px dashed rgba(255,124,77,0.2);
+    }
+    .inline-caption { font-size: 0.78rem; color: var(--muted); margin-top: 0.7rem; font-style: italic; text-align: center; }
+
+    /* Destination cards */
+    .destination-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0 2.5rem; }
+    .dest-card { background: var(--card); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+    .dest-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; display: block; }
+    .dest-img-placeholder {
+      width: 100%; aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #1a0a00, #3d1a00);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 0.4rem; color: var(--muted); font-size: 0.72rem;
+      letter-spacing: 0.5px; border-bottom: 1px dashed rgba(255,124,77,0.2);
+    }
+    .dest-body { padding: 1rem 1.2rem 1.3rem; }
+    .dest-body h4 { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .dest-body p { font-size: 0.82rem !important; color: var(--muted) !important; margin: 0 !important; line-height: 1.5 !important; }
+    .dest-badge { display: inline-block; font-size: 0.65rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--accent-light); margin-bottom: 0.4rem; }
+
+    .highlight-box { background: var(--card); border-left: 3px solid var(--accent); padding: 1.5rem 1.8rem; border-radius: 0 4px 4px 0; margin: 2rem 0; }
+    .highlight-box p { color: var(--text) !important; font-size: 1rem !important; margin: 0 !important; }
+
+    .tips-list { list-style: none; margin: 1rem 0 2rem; }
+    .tips-list li { font-size: 1rem; color: #ccccd8; padding: 0.7rem 0; border-bottom: 1px solid var(--border); display: flex; gap: 0.8rem; line-height: 1.6; }
+    .tips-list li:last-child { border-bottom: none; }
+
+    .nav-bottom { max-width: var(--body-max); margin: 0 auto; padding: 2rem 5vw 5rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); flex-wrap: wrap; gap: 1rem; }
+    .nav-bottom a { color: var(--accent-light); text-decoration: none; font-size: 0.9rem; font-weight: 500; display: inline-flex; align-items: center; gap: 0.4rem; transition: gap 0.2s; }
+    .nav-bottom a:hover { gap: 0.7rem; }
+    .nav-home::before { content: '← '; }
+    .nav-next::after { content: ' →'; }
+
+    footer { border-top: 1px solid var(--border); padding: 2.5rem 5vw; text-align: center; color: var(--muted); font-size: 0.82rem; }
+    footer strong { color: #e8ff47; }
+
+    @media (max-width: 600px) { .destination-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a class="logo" href="../index.html">Blog<span> N08MiniCloud</span></a>
+    <a class="back-btn" href="../index.html">Quay lại trang chủ</a>
+  </header>
+
+  <div class="article-hero">
+    <span class="tag">Du lịch</span>
+    <h1>Khám phá Việt Nam:<br/>Những điểm đến<br/><em>không thể bỏ lỡ</em></h1>
+    <div class="article-meta">
+      <span>✍️ Tác giả: Sinh viên</span>
+      <span>📅 01 tháng 4, 2026</span>
+      <span>⏱ 6 phút đọc</span>
+      <span>🏷 Du lịch · Việt Nam · Trải nghiệm</span>
+    </div>
+  </div>
+
+
+  <div class="cover-wrap">
+    <img class="cover-img" src="../img/vietnam_tour7.jpg"/>
+    <p class="cover-caption">Hình minh họa: Thiên nhiên và văn hoá Việt Nam</p>
+  </div>
+
+  <article class="article-body">
+
+    <h2>Vì sao Việt Nam là điểm đến hàng đầu Đông Nam Á?</h2>
+    <p>
+      Trải dài hơn 3.000 km từ Bắc vào Nam, Việt Nam sở hữu sự đa dạng hiếm có: núi rừng Tây Bắc hùng vĩ, đồng bằng sông Cửu Long trù phú, bờ biển xanh ngọc miền Trung và những đô thị sôi động. Không có quốc gia nào trong khu vực nén được nhiều trải nghiệm vào một hành trình ngắn như Việt Nam.
+    </p>
+    <p>
+      Năm 2024, Việt Nam đón hơn 17,5 triệu lượt khách quốc tế — con số kỷ lục. Hà Nội, Hội An, Đà Nẵng, Phú Quốc liên tục xuất hiện trên danh sách "điểm đến đáng đến nhất" của Lonely Planet và National Geographic.
+    </p>
+
+    <div class="inline-img-wrap">
+      <img class="inline-img" src="../img/vietnam_tour5.jpg" alt="Vịnh Hạ Long" />
+      <p class="inline-caption">Vịnh Hạ Long — Di sản Thiên nhiên Thế giới được UNESCO công nhận</p>
+    </div>
+
+    <h2>4 điểm đến không thể bỏ lỡ</h2>
+
+    <div class="destination-grid">
+      <div class="dest-card">
+
+        <img class="dest-img" src="../img/vietnam_tour1.jpg" alt="Hội An" />
+        <div class="dest-body">
+          <span class="dest-badge">🌿 Miền Trung</span>
+          <h4>Phố cổ Hội An</h4>
+          <p>Kiến trúc vàng son, đèn lồng lung linh, ẩm thực độc đáo. Đẹp nhất vào dịp Rằm hàng tháng.</p>
+        </div>
+      </div>
+
+      <div class="dest-card">
+        <img class="dest-img" src="../img/vietnam_tour2.jpg" alt="Sa Pa" />
+        <div class="dest-body">
+          <span class="dest-badge">🏔 Tây Bắc</span>
+          <h4>Ruộng bậc thang Sa Pa</h4>
+          <p>Núi mây, ruộng lúa bậc thang kỳ vĩ và văn hóa dân tộc H'Mông, Dao đỏ đặc sắc.</p>
+        </div>
+      </div>
+
+      <div class="dest-card">
+        <img class="dest-img" src="../img/vietnam_tour3.jpg" />
+        <div class="dest-body">
+          <span class="dest-badge">🏝 Miền Nam</span>
+          <h4>Đảo ngọc Phú Quốc</h4>
+          <p>Biển trong vắt, resort đẳng cấp, hải sản tươi sống. Lý tưởng để nghỉ dưỡng và lặn biển.</p>
+        </div>
+      </div>
+
+      <div class="dest-card">
+        <img class="dest-img" src="../img/vietnam_tour4.jpg" />
+        <div class="dest-body">
+          <span class="dest-badge">🌄 Cực Bắc</span>
+          <h4>Cao nguyên đá Hà Giang</h4>
+          <p>Đèo Mã Pí Lèng hùng tráng, hoa tam giác mạch tím ngắt — thiên đường của dân phượt.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p>🗓 <strong>Thời điểm lý tưởng:</strong> Miền Bắc đẹp nhất tháng 9–11 (lúa chín vàng). Miền Trung tránh tháng 10–11 (mùa lũ). Miền Nam nên đến tháng 12–4 (mùa khô). Hè là cao điểm — đặt trước ít nhất 2 tuần!</p>
+    </div>
+
+    <!-- ẢNH INLINE 2 – Ẩm thực -->
+    <div class="inline-img-wrap">
+
+      <img class="inline-img" src="../img/vietnam_cuisine.jpg"  />
+      <p class="inline-caption">Ẩm thực đường phố Việt Nam — một hành trình khám phá riêng</p>
+    </div>
+
+    <h2>5 mẹo du lịch cho sinh viên ít tiền</h2>
+    <ul class="tips-list">
+      <li>🚌 <span><strong>Xe giường nằm:</strong> Phương Trang, Hoàng Long kết nối hầu hết tỉnh thành, chỉ 150–300k/chuyến. Tiết kiệm được cả tiền khách sạn một đêm.</span></li>
+      <li>🏠 <span><strong>Hostel:</strong> Giường dormitory chỉ 80–150k/đêm tại Hà Nội, Đà Nẵng, TP.HCM — tiết kiệm và có cơ hội gặp bạn đồng hành mới.</span></li>
+      <li>🍜 <span><strong>Ăn đường phố:</strong> Bún bò Hội An 30k, bánh mì Phú Yên 15k, cơm tấm Sài Gòn 35k — ngon hơn nhà hàng, rẻ hơn nhiều lần.</span></li>
+      <li>📱 <span><strong>Đặt vé sớm:</strong> Vexere, 12go.asia thường có vé sớm rẻ hơn 20–30%. Đặt trước 2–3 tuần vào mùa cao điểm.</span></li>
+      <li>🌧 <span><strong>Mùa thấp điểm:</strong> Tiết kiệm 30–50% chi phí, ít đám đông hơn và trải nghiệm chân thực hơn.</span></li>
+    </ul>
+
+    <h2>Kết luận</h2>
+    <p>
+      Việt Nam không chỉ là điểm đến — nó là trải nghiệm sống. Mỗi vùng đất mang một linh hồn riêng, mỗi bữa ăn là một câu chuyện, mỗi người bạn gặp là một bài học. Nếu bạn chưa có kế hoạch cho kỳ nghỉ tới, hãy bắt đầu từ chính đất nước mình đang sống.
+    </p>
+    <p>
+      Đừng đợi đến khi "có đủ tiền" hay "có đủ thời gian" — những chuyến đi đáng nhớ nhất thường bắt đầu bằng một quyết định bộc phát vào một buổi tối thứ Sáu.
+    </p>
+
+  </article>
+
+  <div class="nav-bottom">
+    <a class="nav-home" href="../index.html">Trang chủ</a>
+    <a class="nav-next" href="blog2.html">Bài tiếp: Bảo mật mạng</a>
+  </div>
+
+  <footer>
+    <p>© 2026 <strong>Blog N08MiniCloud</strong> — Chia sẻ về Du lịch, Công nghệ & Cuộc sống</p>
+  </footer>
+
+</body>
+</html>
