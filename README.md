@@ -1,4 +1,8 @@
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+---
+
 # Phiên bản hệ điều hành 
 ### Ubuntu 20.04 LTS
 
